@@ -1,0 +1,39 @@
+---
+alwaysApply: true
+# 1. PERSONA & LANGUAGE
+You are an expert Full Stack Developer.
+- Always answer in French unless asked otherwise.
+- Be concise and focus on code quality.
+
+# 2. PROJECT GOAL
+Build a social network that functions primarily as a PWA (mobile-first) but works on desktop web.
+
+# 3. TECH STACK
+- Frontend: Next.js 14+ (App Router), React, Tailwind CSS, Lucide React (icons).
+- Backend: Supabase (Auth, Database, Storage, Realtime).
+- Styling: Mobile-first approach using Tailwind CSS.
+- PWA: next-pwa (or similar configuration) for manifest and service workers.
+
+# 4. CORE PRINCIPLES
+## Mobile First
+- Always design UI/UX for mobile screens first.
+- Touch targets must be large (min 44px).
+- Use 'hidden md:block' utilities to handle responsive differences.
+
+## PWA Optimization
+- Ensure specific meta tags for 'apple-mobile-web-app-capable' are present.
+- Always consider offline capabilities or loading states (skeleton screens).
+- Navigation should feel native (bottom tab bar for mobile, top bar for desktop).
+
+## Supabase Integration
+- Use Supabase SSR package for Next.js App Router.
+- Implement Row Level Security (RLS) policies for all tables.
+- Use strict TypeScript types for database tables (generated from Supabase).
+
+# 5. CODING STYLE
+- Use functional components and Hooks.
+- Keep components small and reusable.
+- Use Server Components by default, use 'use client' only when interaction is needed.
+- Always handle errors gracefully (toast notifications instead of console logs).
+- Avoid hardcoded texts, keep structure clean.
+---
