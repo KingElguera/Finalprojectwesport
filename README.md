@@ -1,145 +1,36 @@
-# WeSport - Social Network for Athletes
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Application de réseau social pour les athlètes, construite avec Next.js 14+ et Supabase.
+## Getting Started
 
-## 🚀 Technologies
+First, run the development server:
 
-- **Frontend**: Next.js 14+ (App Router), React 19, Tailwind CSS
-- **Backend**: Supabase (Auth, Database, Storage, Realtime)
-- **PWA**: next-pwa pour le support Progressive Web App
-
-## 📋 Prérequis
-
-- Node.js 18+ 
-- npm ou yarn
-- Compte Supabase
-
-## 🛠️ Installation
-
-1. **Cloner le projet**
-```bash
-git clone <repository-url>
-cd WeSport
-```
-
-2. **Installer les dépendances**
-```bash
-npm install
-```
-
-3. **Configurer les variables d'environnement**
-
-Créez un fichier `.env.local` à la racine du projet :
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=votre_url_supabase
-NEXT_PUBLIC_SUPABASE_ANON_KEY=votre_cle_anon_supabase
-```
-
-4. **Configurer Supabase**
-
-   a. Créez un nouveau projet sur [Supabase](https://supabase.com)
-   
-   b. Dans l'éditeur SQL de Supabase, exécutez les migrations dans l'ordre :
-      - `supabase/migrations/001_initial_schema.sql`
-      - `supabase/migrations/002_rls_policies.sql`
-      - `supabase/migrations/003_storage_policies.sql`
-   
-   c. Créez les buckets Storage dans Supabase Dashboard :
-      - `avatars` (public)
-      - `posts` (public)
-
-5. **Lancer le serveur de développement**
 ```bash
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-L'application sera accessible sur [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## 📁 Structure du projet
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-```
-wesport/
-├── app/
-│   ├── (auth)/          # Routes d'authentification
-│   │   ├── login/
-│   │   └── signup/
-│   ├── components/      # Composants React
-│   ├── layout.tsx       # Layout racine
-│   └── page.tsx         # Page d'accueil
-├── lib/
-│   ├── supabase/        # Configuration Supabase
-│   │   ├── client.ts
-│   │   ├── server.ts
-│   │   └── middleware.ts
-│   ├── services/         # Services Supabase
-│   │   ├── auth.service.ts
-│   │   ├── profile.service.ts
-│   │   ├── posts.service.ts
-│   │   └── notifications.service.ts
-│   ├── types.ts         # Types TypeScript
-│   └── utils.ts         # Utilitaires
-├── supabase/
-│   └── migrations/      # Migrations SQL
-└── public/              # Fichiers statiques
-```
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## 🔐 Authentification
+## Learn More
 
-L'authentification est gérée par Supabase Auth. Les utilisateurs peuvent :
-- S'inscrire avec email/password
-- Se connecter
-- Réinitialiser leur mot de passe
+To learn more about Next.js, take a look at the following resources:
 
-## 📊 Base de données
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-Le schéma de base de données inclut :
-- `profiles` - Profils utilisateurs
-- `posts` - Posts des utilisateurs
-- `post_likes` - Likes sur les posts
-- `post_comments` - Commentaires
-- `saved_posts` - Posts sauvegardés
-- `follows` - Relations followers/following
-- `notifications` - Notifications en temps réel
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## 🔒 Sécurité
+## Deploy on Vercel
 
-- Row Level Security (RLS) activé sur toutes les tables
-- Policies configurées pour contrôler l'accès aux données
-- Validation côté serveur avec Supabase
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## 📱 PWA
-
-L'application est configurée comme PWA avec :
-- Manifest.json
-- Service Worker
-- Support offline
-- Installation sur mobile/desktop
-
-## 🧪 Développement
-
-### Commandes disponibles
-
-```bash
-npm run dev      # Serveur de développement
-npm run build    # Build de production
-npm run start    # Serveur de production
-npm run lint     # Linter
-```
-
-## 📝 Notes
-
-- Les fichiers `profileStorage.ts` et `notificationsStorage.ts` sont temporaires et utilisent localStorage. Ils seront remplacés par les services Supabase lors de l'intégration complète.
-- Les données mockées dans `lib/constants.ts` seront remplacées par les vraies données Supabase.
-
-## 🚧 Prochaines étapes
-
-- [ ] Intégration complète des services Supabase dans les composants
-- [ ] Remplacement du localStorage par Supabase
-- [ ] Implémentation de la pagination infinie
-- [ ] Optimisation des images avec compression
-- [ ] Tests unitaires et d'intégration
-
-## 📄 Licence
-
-MIT
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
