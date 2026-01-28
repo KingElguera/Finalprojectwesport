@@ -67,8 +67,8 @@ export default function Home() {
 
             {/* Subtitle */}
             <p className="opacity-0 animate-slide-up stagger-2 text-lg md:text-xl text-ws-white-dim max-w-2xl mx-auto leading-relaxed">
-              Fini les séances solo. Connecte-toi avec des sportifs motivés autour de toi, 
-              partage tes exploits et trouve le partenaire idéal pour ta prochaine session.
+              Plus qu'une app de sport une communauté en mouvement, partage tes entrainements, rencontre des sportifs près de toi et transforme ton sport en un véritable mode de vie
+              partage tes exploits et trouve le partenaire idéal pour ta prochaine session
             </p>
 
             {/* CTA Buttons */}

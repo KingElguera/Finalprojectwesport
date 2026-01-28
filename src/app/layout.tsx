@@ -10,7 +10,7 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: "WeSport - Le réseau social des sportifs",
-  description: "Trouve ton partenaire de sport, partage tes accomplissements et rejoins la communauté sportive la plus motivée.",
+  description: "Plus qu'une app de sport une communauté en mouvement, partage tes entrainements, rencontre des sportifs près de toi et transforme ton sport en un véritable mode de vie.",
   keywords: ["sport", "réseau social", "partenaire", "fitness", "football", "basketball", "gym"],
 };
 
