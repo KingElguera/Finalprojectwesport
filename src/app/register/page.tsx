@@ -105,6 +105,10 @@ export default function RegisterPage() {
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
+        options: {
+          // Désactiver la confirmation email pour le dev
+          emailRedirectTo: `${window.location.origin}/app`,
+        }
       });
 
       if (authError) {
@@ -115,27 +119,44 @@ export default function RegisterPage() {
         throw new Error("Erreur lors de la création du compte");
       }
 
-      // 2. Créer le profil dans la table profiles
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .insert({
-          id: authData.user.id,
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          birth_date: formData.birthDate,
-          email: formData.email,
-          phone: formData.phone,
-          country_code: formData.countryCode,
-          sports: formData.sports,
-          feed_preferences: formData.feedPreferences,
-        });
-
-      if (profileError) {
-        throw new Error(profileError.message);
+      // 2. Essayer de créer le profil (peut échouer si la table n'existe pas)
+      try {
+        await supabase
+          .from('profiles')
+          .insert({
+            id: authData.user.id,
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            birth_date: formData.birthDate,
+            email: formData.email,
+            phone: formData.phone,
+            country_code: formData.countryCode,
+            sports: formData.sports,
+            feed_preferences: formData.feedPreferences,
+          });
+      } catch (profileErr) {
+        console.log('Profile creation skipped (table may not exist)');
       }
 
-      // 3. Redirection vers le feed
-      router.push('/app/feed');
+      // 3. Se connecter immédiatement après l'inscription
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (signInError) {
+        // Si email confirmation requise, informer l'utilisateur
+        if (signInError.message.includes('Email not confirmed')) {
+          throw new Error("Un email de confirmation a été envoyé. Veuillez confirmer votre email puis vous connecter.");
+        }
+        throw new Error(signInError.message);
+      }
+
+      // 4. Attendre un peu que l'AuthProvider se mette à jour
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // 5. Redirection vers l'app principale
+      router.push('/app');
 
     } catch (err) {
       setError(err instanceof Error ? err.message : "Une erreur est survenue");

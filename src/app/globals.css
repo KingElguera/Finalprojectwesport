@@ -136,3 +136,49 @@ body {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 }
+
+/* Leaflet Map Styles */
+@import "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom map markers */
+.user-marker, .location-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Animate in */
+.animate-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in-from-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.slide-in-from-top-2 {
+  animation: slideInTop 0.2s ease-out;
+}
+
+@keyframes slideInTop {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

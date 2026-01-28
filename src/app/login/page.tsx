@@ -3,18 +3,44 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login submitted:", formData);
-    alert("Connexion réussie ! (Simulation - backend pas encore connecté)");
+    setLoading(true);
+    setError(null);
+
+    try {
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (signInError) {
+        throw new Error(signInError.message);
+      }
+
+      // Attendre que l'AuthProvider se mette à jour
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // Redirection vers l'app principale
+      router.push('/app');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erreur de connexion");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -109,11 +135,19 @@ export default function LoginPage() {
               </Link>
             </div>
 
+            {/* Message d'erreur */}
+            {error && (
+              <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-400 text-sm">
+                {error}
+              </div>
+            )}
+
             <button
               type="submit"
-              className="w-full py-4 bg-gradient-to-r from-ws-green to-ws-emerald text-ws-dark font-bold text-lg rounded-xl hover:scale-[1.02] transition-transform"
+              disabled={loading}
+              className="w-full py-4 bg-gradient-to-r from-ws-green to-ws-emerald text-ws-dark font-bold text-lg rounded-xl hover:scale-[1.02] transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Se connecter
+              {loading ? "Connexion en cours..." : "Se connecter"}
             </button>
           </form>
 
